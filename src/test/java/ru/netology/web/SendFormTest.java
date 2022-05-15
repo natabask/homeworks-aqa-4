@@ -28,5 +28,7 @@ public class SendFormTest {
         $("[data-test-id=agreement]").click();
         $x("//*[text()=\"Забронировать\"]").click();
         $(byClassName("notification__title")).should(ownText("Успешно!"), Duration.ofSeconds(15));
+        $(byClassName("notification__content")).should(ownText("Встреча успешно забронирована на " + LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))), Duration.ofSeconds(15));
+
     }
 }
