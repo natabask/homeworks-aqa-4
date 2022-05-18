@@ -22,13 +22,14 @@ public class SendFormTest {
         // убираем автозаполнение поля ввода даты
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         // устанавливаем дату +5 дней от текущей
-        $("[data-test-id=date] input").setValue(LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("ddMMyyyy")));
+        String date = LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[data-test-id=date] input").setValue(date);
         $("[data-test-id=name] input").setValue("Мери Поппинс-До-Свидания");
         $("[data-test-id=phone] input").setValue("+74569875656");
         $("[data-test-id=agreement]").click();
         $x("//*[text()=\"Забронировать\"]").click();
         $(byClassName("notification__title")).should(ownText("Успешно!"), Duration.ofSeconds(15));
-        $(byClassName("notification__content")).should(ownText("Встреча успешно забронирована на " + LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))), Duration.ofSeconds(15));
+        $(byClassName("notification__content")).should(ownText("Встреча успешно забронирована на " + date), Duration.ofSeconds(15));
 
     }
 }
